@@ -1,0 +1,174 @@
+>> load('mosaic.mat')
+>> image(mosaic)
+>> colormap(gray(256))
+>> imresize(mosaic,[256,256]);
+>> mosaic_resize = imresize(mosaic,[256,256]);
+>> image(mosaic_resize)
+
+
+>> y=fft2(mosaic_resize);
+>> image(256*log(abs(y))/max(max(log(abs(y)))))
+
+>> mask = zeros(256,256);
+>> mask(1:30,1:30) = 1;
+>> mask(1:30, 226:256) = 1;
+>> mask(226:256, 226:256) = 1;
+>> mask(226:256, 1:30) = 1;
+>> image(256*mask)
+>> colormap(gray(256))
+
+Low pass
+
+>> image(mosaic)
+>> colormap(gray(256))
+>> y=fft2(mosaic);
+>> image(256*log(abs(y))/max(max(log(abs(y)))))
+>> mask = zeros(569,800);
+>> mask(1:50,1:50) = 1;
+>> mask(519:569, 1:50) = 1;
+>> mask(519:569,750:800) = 1;
+>> mask(1:50,750:800) = 1;
+>> image(256*mask)
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+High Pass
+>> mask = 1-mask;
+>> y2 = y .* mask;
+>> z = ifft2(y2);
+>> image(256*mask)
+>> image(256*abs(z)/max(max(abs(z))))
+
+Low pass, more detail
+
+>> mask = zeros(569,800);
+>> mask(1:100,1:100) = 1;
+>> mask(469:569, 1:100) = 1;
+>> mask(469:569,700:800) = 1;
+>> mask(1:100,700:800) = 1;
+>> image(256*mask)
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+High pass smallest detail
+
+>> mask = 1-mask;
+>> y2 = y .* mask;
+>> z = ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+
+center of fft 
+
+>> mask = zeros(569,800);
+>> y=fft2(mosaic);
+>> image(256*log(abs(y))/max(max(log(abs(y)))))
+>> mask(234:334,350:450) = 1;
+>> image(256*mask)
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+Bottom right corner of fft
+
+>> mask(550:568, 780:799);
+>> mask = zeros(569,800);
+>> mask(550:568, 780:799) = 1;
+>> image(256*mask)
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+Top left of fft
+
+>> image(256*mask)
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+>> image(mosaic)
+>> y=fft2(mosaic);
+>> image(256*log(abs(y))/max(max(log(abs(y)))))
+>> mask = zeros(569,800);
+>> mask(780:800, 560:570);
+
+white dots in top left and bottom right corners(4 dots)
+
+ 
+>> y=fft2(mosaic);
+>> image(256*log(abs(y))/max(max(log(abs(y)))))
+>> mask = zeros(569,800);
+>> mask(19:46,90:120) = 1;
+>> mask(60:90,30:60) = 1;
+>> mask(480:510,740:770) = 1;
+>> mask(520:550,680:710) = 1;
+>> image(256*mask) 
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+
+all dots from all corners
+
+>> image(mosaic)
+>> y=fft2(mosaic);
+>> image(256*log(abs(y))/max(max(log(abs(y)))))
+>> mask = zeros(569,800);
+>> mask(13:52, 90:130) = 1;
+>> mask(55:98, 28:76) = 1;
+>> mask(477:520, 738:780) = 1;
+>> mask(520:550, 675:720) = 1;
+>> mask(474:507, 29:79) = 1;
+>> mask(525:559,83:136) = 1;
+>> mask(14:46, 677:726) = 1;
+>> mask(60:95, 735:773) = 1;
+>> image(256*mask)
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+
+all four strips near center
+
+>> image(mosaic)
+>> y=fft2(mosaic);
+>> image(256*log(abs(y))/max(max(log(abs(y)))))
+>> mask = zeros(569,800);
+>> 
+>> mask(52:218, 127:320) = 1;
+>> mask(330:520,99:313) = 1;
+>> mask(66:219,519:718) = 1;
+>> mask(342:507,465:704) = 1;
+>> image(256*mask)
+>> y2 = y .* mask;
+>> z=ifft2(y2);
+>> image(256*abs(z)/max(max(abs(z))))
+
+
+Everything but cross in the middle
+
+>> mask = zeros(569,800);
+>> mask(50:518,344:461) = 1;
+>> mask(238:335,90:740) = 1;
+>> image(256*mask)
+>> mask = 1-mask;
+>> y2 = y .* mask;
+>> z = ifft2(y2);
+>> image(256*mask)
+>> colormap(gray(256))
+>> image(256*abs(z)/max(max(abs(z))))
+
+
+Horizontal middle section
+
+>> mask = zeros(569,800);
+>> mask(330:400,1:320) = 1;
+>> mask(330:400,480:800) = 1;
+>> mask(160:240,1:320) = 1;
+>> mask(160:240,480:800) = 1;
+>> image(256*mask)
+>> colormap(gray(256))
+>> y2 = y .* mask;
+z=ifft2(y2);
+image(256*abs(z)/max(max(abs(z))))
